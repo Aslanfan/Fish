@@ -227,6 +227,8 @@ export interface PlayerView {
   remainingSets: SetId[];
   log: GameEvent[];
   winner: Team | null;
+  /** Every hand, but only once the game is finished (for the end-of-game reveal). Null until then. */
+  revealedHands: Card[][] | null;
 }
 
 export function viewFor(state: GameState, seat: Seat): PlayerView {
@@ -245,6 +247,7 @@ export function viewFor(state: GameState, seat: Seat): PlayerView {
     remainingSets: SET_IDS.filter((id) => !done.has(id)),
     log: state.log,
     winner: state.winner,
+    revealedHands: state.phase === "finished" ? state.hands : null,
   });
 }
 

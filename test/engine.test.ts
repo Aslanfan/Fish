@@ -238,7 +238,20 @@ test("views never include other players' hands", () => {
   const v = viewFor(g, 2);
   assert.deepEqual(v.hand, g.hands[2]);
   assert.ok(!("hands" in v));
+  assert.equal(v.revealedHands, null);
   assert.deepEqual(v.handCounts, g.hands.map((h) => h.length));
+});
+
+test("once the game is over, every view reveals the cards still in hands", () => {
+  const s0 = fromHands(
+    [[...SET_CARDS["S-low"]!], ["9H"], [...SET_CARDS["S-high"]!], ["10H"], ["JH"], []],
+    0,
+    { setsToWin: 2 },
+  );
+  const s1 = must(s0, declare(0, "S-low", [0, 0, 0, 0, 0, 0]));
+  assert.equal(viewFor(s1, 1).revealedHands, null);
+  const s2 = must(s1, declare(2, "S-high", [2, 2, 2, 2, 2, 2]));
+  assert.deepEqual(viewFor(s2, 1).revealedHands, [[], ["9H"], [], ["10H"], ["JH"], []]);
 });
 
 test("legalAsks: opponents only, unheld cards only, sets you hold only", () => {

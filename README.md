@@ -7,6 +7,8 @@ No networking, no UI. A server, a bot, or a test calls the same function.
 npm install
 npm test            # unit tests + simulated full games
 npm run sim 1000    # play 1000 random games, check invariants every step
+npm run dev         # play against the bots in your browser
+npm run phone       # same, over https on your Wi-Fi, for testing on a phone (accept the certificate warning)
 ```
 
 ## Shape

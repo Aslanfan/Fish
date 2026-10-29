@@ -52,6 +52,14 @@ Owner: Caleb. Comfortable with hands-on technical work; wants to stay hands-on w
 ## Commands
 
 - `npm test` runs unit tests and simulated games. `npm run sim 1000` runs 1000 games. `npm run typecheck`.
+- `npm run dev` serves `web/`, a local playtest page (you + 2 bots vs 3 bots, engine in the browser, no server).
+  It is vanilla TS for now; the real client framework is still open.
+- `src/bots/deduction.ts`: bots remember deductions in a fixed number of registers (Caleb's design). One
+  register per card ("Nora has the 3♥", or "not Max, not Iris") and one per seat+set ("Nora holds n more low
+  hearts I can't name"). Own hand, card counts, and reasoning over registers are free. Difficulty knobs:
+  registers, lapse (ask not taken in), blunder (random ask), prioritize (what to evict), nerve (odds needed to
+  declare; halves when a game stalls). Easy has at least 6 registers (one full set). Nightmare is unlimited.
+  `src/bots/runner.ts` decides which bot acts next.
 
 ## Conventions
 
